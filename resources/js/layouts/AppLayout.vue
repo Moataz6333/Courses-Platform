@@ -10,6 +10,7 @@ interface Props {
 withDefaults(defineProps<Props>(), {
     breadcrumbs: () => [],
 });
+const Appearance = localStorage.getItem('appearance');
 
 </script>
 

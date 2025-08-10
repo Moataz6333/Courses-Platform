@@ -165,7 +165,7 @@ watch(
                                     <label for="head" class="text-xl">Question Head</label>
                                     <textarea
                                         v-model="form.questionHead"
-                                        class="mt-2.5 block w-full rounded-lg border-0 py-2 pl-5 text-gray-900 ring-1 ring-gray-200 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 focus:ring-inset sm:text-sm"
+                                        class="mt-2.5 block w-full rounded-lg border-0 py-2 pl-5  ring-1 ring-gray-200 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 focus:ring-inset sm:text-sm"
                                         placeholder="Head ?"
                                         name="head"
                                         id="head"
@@ -188,7 +188,7 @@ watch(
                                     <label for="points" class="text-xl">Points</label>
                                     <input
                                         v-model="form.points"
-                                        class="mt-2.5 block w-full rounded-lg border-0 py-2 pl-5 text-gray-900 ring-1 ring-gray-200 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 focus:ring-inset sm:text-sm"
+                                        class="mt-2.5 block w-full rounded-lg border-0 py-2 pl-5  ring-1 ring-gray-200 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 focus:ring-inset sm:text-sm"
                                         placeholder="Points"
                                         type="text"
                                         name="points"
@@ -234,7 +234,7 @@ watch(
                                         <label for="option">Option {{ index + 1 }} :</label>
                                         <input
                                             v-model="option.answer"
-                                            class="mt-2.5 block w-3/4 rounded-lg border-0 py-2 pl-5 text-gray-900 ring-1 ring-gray-200 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-blue-400 focus:ring-inset sm:text-sm"
+                                            class="mt-2.5 block w-3/4 rounded-lg border-0 py-2 pl-5  ring-1 ring-gray-200 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-blue-400 focus:ring-inset sm:text-sm"
                                             placeholder="Answer"
                                             type="text"
                                             name="option"
@@ -279,7 +279,7 @@ watch(
                             <h1 class="text-center text-2xl font-medium">Written</h1>
                             <textarea
                                 v-model="form.answer"
-                                class="mt-2.5 block w-3/4 rounded-lg border-0 py-2 pl-5 text-gray-900 ring-1 ring-gray-200 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 focus:ring-inset sm:text-sm"
+                                class="mt-2.5 block w-3/4 rounded-lg border-0 py-2 pl-5  ring-1 ring-gray-200 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 focus:ring-inset sm:text-sm"
                                 placeholder="Written Answer"
                                 name="answer"
                                 id="description"

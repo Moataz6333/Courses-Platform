@@ -67,16 +67,19 @@ watch(
             <div class="my-3 p-4">
                  <table v-if="exams" class="w-full rounded-md border-1 border-gray-200 overflow-hidden">
                 <thead class="text-white bg-gray-900 p-2 rounded-t-md">
-                    <th class="text-start p-3">#</th>
-                    <th class="text-start ">title</th>
-                    <th class="text-start">period</th>
-                    <th class="text-start">questions</th>
-                    <th class="text-start">edit</th>
-                    <th class="text-start">delete</th>
-                </thead>
+                    <tr>
+                        <th class="text-start p-3">#</th>
+                        <th class="text-start ">title</th>
+                        <th class="text-start">period</th>
+                        <th class="text-start">questions</th>
+                        <th class="text-start">results</th>
+                        <th class="text-start">edit</th>
+                        <th class="text-start">delete</th>
+                    </tr>
+                    </thead>
                 <tbody>
                     <tr 
-                    class="p-4 border-1 border-gray-300 text-sm bg-gray-50 hover:bg-gray-100"
+                    class="p-4 border-1 text-black border-gray-300 text-sm bg-gray-50 hover:bg-gray-100"
                     v-for="(exam,index) in exams">
                         <td scope="col" class="p-4 font-medium">{{ index+1 }}</td>
                         <td>{{ exam.title.slice(0,30) }}</td>
@@ -89,6 +92,14 @@ watch(
                                  class="bg-gray-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 cursor-pointer"
                             >
                                 Questions
+                            </Link>
+                        </td>
+                          <td>
+                            <Link
+                                :href="route('exam.results',exam.id)"
+                                 class="bg-purple-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-purple-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-900 cursor-pointer"
+                            >
+                                Results
                             </Link>
                         </td>
                         <td>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Enrollment;
+use App\Models\Offer;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -280,6 +281,11 @@ class MyFatoorahController extends Controller
             abort(401);
         }
         $user =$enrollment->user;
+        $total=$course->price;
+        $offer=$this->hasPublicOffer($course->id);
+        if($offer){
+            $total=$course->price - ($offer*$course->price/100);
+        }
         
         return [
             'courseId'    => $course->id,
@@ -287,10 +293,21 @@ class MyFatoorahController extends Controller
             'name' => $user->name,
             'email' => $user->email,
             'phone' => $user->phone ?? '',
-            'total'    => $course->price,
+            'total'    => $total,
             'currency' => config('app.currency')
         ];
     }
+
+    private function hasPublicOffer($courseId){
+
+        $offer=Offer::where('course_id',$courseId)->where('isPublic',true)->first();
+        if ($offer) {
+            return $offer->value;
+        }else {
+            return false;
+        }
+    }
+
 
     //-----------------------------------------------------------------------------------------------------------------------------------------
     private function getTestMessage($status, $error)

@@ -110,7 +110,7 @@ onMounted(() => {
 
             <div class="my-3 p-4">
                 <!-- lessons -->
-                <div class="my-2 w-full rounded-md border-1 border-t-gray-100 bg-gray-50 p-3 shadow-sm">
+                <div class="my-2 w-full rounded-md border-1 border-t-gray-100  p-3 shadow-sm">
                     <h1 class="my-3 flex items-center gap-2 text-xl font-bold"><Pin />Add Media</h1>
                 </div>
                 <!-- create -->

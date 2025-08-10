@@ -15,6 +15,7 @@ class Question extends Model
         'has_options',
        
     ];
+    protected $with=['media'];
     public function options() {
         return $this->hasMany(Option::class);
     }
@@ -24,4 +25,5 @@ class Question extends Model
     public function media() {
         return $this->hasOne(Media::class);
     }
+  
 }

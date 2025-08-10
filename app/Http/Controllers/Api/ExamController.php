@@ -5,14 +5,20 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\ExamResource;
 use App\Http\Resources\Api\QuestionResource;
+use App\Models\Answer;
 use App\Models\Exam;
 use App\Models\Result;
+use App\Service\GradingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class ExamController extends Controller
 {
+    public $gradingService;
+    public function __construct(GradingService $gradingService) {
+        $this->gradingService = $gradingService;
+    }
     public function viewExam($id)
     {
         $exam = Exam::withCount('questions')->findOrFail($id);
@@ -28,7 +34,7 @@ class ExamController extends Controller
     public function submit(Request $request, $id)
     {
         $exam = Exam::findOrFail($id)->load('questions');
-        Gate::authorize('SubmittedBefore');
+        Gate::authorize('SubmittedBefore',$exam);
         $res = new Result();
         $res->user_id = Auth::user()->id;
         $res->exam_id = $exam->id;
@@ -49,10 +55,18 @@ class ExamController extends Controller
             }
             if (!$question->has_options) {
                 $res->hasWritten = true;
+                $res->grade='F';
+                $res->save();
+                $answer=Answer::create([
+                    'user_id'=>Auth::user()->id,
+                    'question_id'=>$question->id,
+                    'result_id'=>$res->id,
+                    'answer'=>$answer['answer'],
+                ]);
             }
         }
         $res->correct = $correct;
-        $res->grade=$this->grade($res->total,$correct);
+        $res->grade=$this->gradingService->grade($res->total,$correct);
         if (!$res->hasWritten) {
             $res->status = 'done';
             $res->save();
@@ -72,31 +86,5 @@ class ExamController extends Controller
             ], 200);
         }
     }
-    private function grade($total, $correct)
-    {
-
-        $percentage = ($correct / $total) * 100;
-        $grade = '';
-
-        if ($percentage >= 90) {
-            $grade = 'A';
-        } elseif ($percentage >= 85) {
-            $grade = 'A-';
-        } elseif ($percentage >= 80) {
-            $grade = 'B+';
-        } elseif ($percentage >= 75) {
-            $grade = 'B';
-        } elseif ($percentage >= 70) {
-            $grade = 'B-';
-        } elseif ($percentage >= 65) {
-            $grade = 'C+';
-        } elseif ($percentage >= 60) {
-            $grade = 'C';
-        } elseif ($percentage >= 55) {
-            $grade = 'C-';
-        } else {
-            $grade = 'F';
-        }
-        return $grade;
-    }
+  
 }

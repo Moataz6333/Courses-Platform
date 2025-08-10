@@ -53,7 +53,7 @@ watch(
         <div class="container">
             <!-- header -->
             <div class="header flex w-full items-center gap-3 rounded-b-2xl border-b-2 p-3 px-6">
-                <h1 class="text-bold text-2xl font-medium text-gray-950">Social Media</h1>
+                <h1 class="text-bold text-2xl font-medium ">Social Media</h1>
             </div>
             <!-- form -->
             <div class="my-4 flex flex-col w-full items-center justify-between rounded-md p-4">
@@ -64,7 +64,7 @@ watch(
                             <label for="title" class="text-xl text-blue-500">FaceBook </label>
                             <input
                                 v-model="facebook.link"
-                                class="block w-3/4 rounded-lg border-0 py-2 pl-5 text-gray-900 ring-1 ring-gray-200 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-blue-600 focus:ring-inset sm:text-sm"
+                                class="block w-3/4 rounded-lg border-0 py-2 pl-5  ring-1 ring-gray-200 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-blue-600 focus:ring-inset sm:text-sm"
                                 placeholder="Link"
                                 type="text"
                                 name="facebook"
@@ -89,7 +89,7 @@ watch(
                             <label for="title" class="text-xl text-fuchsia-500">Instagram </label>
                             <input
                                 v-model="instagram.link"
-                                class="block w-3/4 rounded-lg border-0 py-2 pl-5 text-gray-900 ring-1 ring-gray-200 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-fuchsia-600 focus:ring-inset sm:text-sm"
+                                class="block w-3/4 rounded-lg border-0 py-2 pl-5 ring-1 ring-gray-200 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-fuchsia-600 focus:ring-inset sm:text-sm"
                                 placeholder="Link"
                                 type="text"
                                 name="instagram"
@@ -114,7 +114,7 @@ watch(
                             <label for="title" class="text-xl text-green-500">Whatsapp </label>
                             <input
                                 v-model="whatsapp.link"
-                                class="block w-3/4 rounded-lg border-0 py-2 pl-5 text-gray-900 ring-1 ring-gray-200 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-green-600 focus:ring-inset sm:text-sm"
+                                class="block w-3/4 rounded-lg border-0 py-2 pl-5  ring-1 ring-gray-200 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-green-600 focus:ring-inset sm:text-sm"
                                 placeholder="Link"
                                 type="text"
                                 name="whatsapp"

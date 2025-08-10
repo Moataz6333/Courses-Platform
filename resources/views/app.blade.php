@@ -32,10 +32,11 @@
     </style>
 
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
-
+  <link rel="icon" sizes="32x32" src="{{asset('/storage/logo-l.png')}}" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
     <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
 
     @routes
     @vite(['resources/js/app.ts'])

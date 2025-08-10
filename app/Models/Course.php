@@ -38,6 +38,9 @@ class Course extends Model
     public function reviews() {
         return $this->hasMany(Review::class);
     }
+    public function offers() {
+        return $this->hasMany(Offer::class);
+    }
     public function track()  {
         return $this->belongsTo(Track::class);
     }

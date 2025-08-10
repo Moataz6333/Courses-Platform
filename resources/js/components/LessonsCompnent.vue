@@ -29,7 +29,7 @@ const deleteLesson=(lessonId)=>{
                    </thead>
                    <tbody>
                        <tr 
-                       class="p-4 border-1 border-gray-300 text-sm bg-gray-50 hover:bg-gray-100"
+                       class="p-4 border-1 border-gray-300 text-sm text-black bg-gray-50 hover:bg-gray-100"
                        v-for="(lesson,index) in props.lessons.data">
                            <td scope="col" class="p-4 font-medium">{{ index+1 }}</td>
                            <td>{{ lesson.title.slice(0,30) }}</td>

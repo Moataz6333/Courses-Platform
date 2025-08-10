@@ -16,7 +16,7 @@ const close = () => emit('close');
     class="fixed inset-0  flex items-center justify-center z-50"
     
   >
-    <div class="bg-white p-6 rounded-2xl shadow-xl max-w-fit w-full">
+    <div class="bg-white p-6 rounded-2xl shadow-xl max-w-[80vw] w-full">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-semibold">{{ title }}</h2>
         <button @click="close" class="text-gray-500 hover:text-black cursor-pointer">&times;</button>

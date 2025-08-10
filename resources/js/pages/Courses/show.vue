@@ -31,6 +31,7 @@ watch(
     },
     { immediate: true },
 );
+const Appearance = localStorage.getItem('appearance');
 </script>
 <template>
     <Head title="Add-Course" />
@@ -40,8 +41,10 @@ watch(
 
             <div class="my-2 p-4">
                 <!-- card -->
-                <div class="w-full rounded-md border-1 border-t-gray-100 bg-gray-50 p-3 shadow-lg">
-                    <h1 class="my-3.5 flex items-center gap-2 text-2xl font-bold"><BookOpenCheck /> {{ course.title }}</h1>
+                <div class="w-full rounded-md border-1 border-t-gray-100 bg-gray-50 p-3 shadow-lg"
+                :class="{'bg-gray-300 text-black' : Appearance=='dark'}"
+                >
+                    <h1 class="my-3.5 flex items-center gap-2 text-black text-2xl font-bold"><BookOpenCheck /> {{ course.title }}</h1>
                     <p class="text-md p-2 text-gray-600">
                         {{ course.description }}
                     </p>
@@ -52,8 +55,10 @@ watch(
                     </div>
                 </div>
                 <!-- lessons -->
-                <div class="my-2.5 w-full rounded-md border-1 border-t-gray-100 bg-gray-50 p-3 shadow-lg">
-                    <h1 class="my-3.5 flex items-center gap-2 text-2xl font-bold"><Pin /> Lessons</h1>        
+                <div class="my-2.5 w-full rounded-md border-1 border-t-gray-100 bg-gray-50 p-3 shadow-lg"
+                :class="{'bg-gray-300 text-black' : Appearance=='dark'}"
+                >
+                    <h1 class="my-3.5 text-black flex items-center gap-2 text-2xl font-bold"><Pin /> Lessons</h1>        
                         <LessonsPreview :lessons="page.props.lessons.data" />
                 </div>
             </div>

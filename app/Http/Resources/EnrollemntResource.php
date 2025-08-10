@@ -17,6 +17,7 @@ class EnrollemntResource extends JsonResource
         return [
             'id'=>$this->id,
             'name'=>$this->user->name,
+            'email'=>$this->user->email,
             'date'=>date_create($this->created_at)->format('d-M-Y'),
             'paid'=>$this->paid,
             'courseType'=>$this->courseType,

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Interfaces\AiInterface;
+use App\Interfaces\EmailInterface;
 use App\Interfaces\MediaInterface;
 use App\Interfaces\PaymentInterface;
 use App\Models\Course;
@@ -12,8 +14,10 @@ use App\Models\Review;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use App\Models\User;
+use App\Service\AiCorrectingService;
 use App\Service\CloudinaryMediaService;
 use App\Service\MyFatoorahPaymentService;
+use App\Service\ResendEmailService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +32,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PaymentInterface::class, function () {
             return new MyFatoorahPaymentService();
         });
+        $this->app->bind(EmailInterface::class, function () {
+            return new ResendEmailService();
+        });
+       $this->app->bind(AiInterface::class, AiCorrectingService::class);
     }
 
     /**

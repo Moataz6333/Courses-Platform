@@ -20,4 +20,7 @@ class Exam extends Model
     public function course()  {
         return $this->belongsTo(Course::class);
     }
+    public function results() {
+        return $this->hasMany(Result::class);
+    }
 }

@@ -20,24 +20,26 @@ const deleteCourse=(courseId)=>{
         <div class="my-3 p-4">
             <table v-if="props.courses" class="w-full rounded-md border-1 border-gray-200 overflow-hidden">
                 <thead class="text-white bg-gray-900 p-2 rounded-t-md">
-                    <th class="text-start p-3">#</th>
+                    <tr>
+                        <th class="text-start p-3">#</th>
                     <th class="text-start ">title</th>
-                    <th class="text-start">description</th>
                     <th class="text-start">price</th>
                     <th class="text-start">show</th>
                     <th class="text-start">lessons</th>
                     <th class="text-start">exams</th>
+                    <th class="text-start">offers</th>
                     <th class="text-start">enrollments</th>
                     <th class="text-start">edit</th>
                     <th class="text-start">delete</th>
+                    </tr>
                 </thead>
-                <tbody>
+                <tbody >
                     <tr 
-                    class="p-4 border-1 border-gray-300 text-sm bg-gray-50 hover:bg-gray-100"
+                    class="p-4 border-1 border-gray-300 text-sm bg-gray-50 text-black hover:bg-gray-100"
                     v-for="(course,index) in props.courses.data">
                         <td scope="col" class="p-4 font-medium">{{ index+1 }}</td>
                         <td>{{ course.title.slice(0,30) }}</td>
-                        <td>{{ course.description.slice(0,30) + "..." }}</td>
+                      
                         <td class="text-green-500">{{ course.price ==0 ? 'Free' : course.price }}</td>
                       
                         <td>
@@ -62,6 +64,14 @@ const deleteCourse=(courseId)=>{
                                  class="bg-gray-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 cursor-pointer"
                             >
                                 Exams
+                            </Link>
+                        </td>
+                          <td>
+                            <Link
+                                :href="route('course.offers',course.id)"
+                                 class="bg-green-700 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-800 cursor-pointer"
+                            >
+                                Offers
                             </Link>
                         </td>
                           <td>

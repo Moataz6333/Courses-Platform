@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             // EnrollmentSeeder::class
             // ReviewSeeder::class
             // LessonSeeder::class
+            // ResultSeeder::class
+            // WrittenResultsSeeder::class
         ]);
     }
 }

@@ -10,15 +10,20 @@ import { router, usePage } from '@inertiajs/vue3';
         type:Function,
         required:true,
     }
-})
+});
+
+const Appearance=localStorage.getItem('appearance');
 
 </script>
 <template>
     <div class="max-w-7xl mx-auto py-6">
         <div class="max-w-none mx-auto">
-            <div class="bg-white overflow-hidden shadow sm:rounded-lg">
+            <div class="bg-white overflow-hidden shadow sm:rounded-lg"
+
+            >
                 <div
-                    class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6"
+                    class=" px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6"
+                    :class="[Appearance=='dark'? 'bg-gray-300 text-white':'bg-white']"
                 >
                     <div class="flex-1 flex justify-between sm:hidden" />
                     <div

@@ -67,10 +67,10 @@ class ExamController extends Controller
      */
     public function show(string $id)
     {
-        $exam = Exam::findOrFail($id);
+        $exam = Exam::findOrFail($id)->load(['course','questions']);
         Gate::authorize('CourseOwner', $exam->course);
         return Inertia::render('Exams/show', [
-            'exam' => ExamResource::make($exam->load('course')),
+            'exam' => ExamResource::make($exam),
             'questions' => QuestionResource::collection($exam->questions->load('options'))
         ]);
     }

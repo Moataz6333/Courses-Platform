@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\LessonController;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\TeacherController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\CourseController;
 use App\Http\Middleware\StudentMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -42,6 +43,8 @@ Route::middleware(['auth:sanctum',StudentMiddleware::class])->group(function () 
     Route::post('/update/review/{reviewId}', [ReviewController::class, 'update']);
     Route::delete('/course/review/{id}', [ReviewController::class, 'destroy']);
 
+    // lessons
+    Route::get('/lesson/{id}', [CoursesController::class,'lesson']);
     
 
 });

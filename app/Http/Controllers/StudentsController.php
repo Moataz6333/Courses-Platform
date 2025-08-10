@@ -37,7 +37,7 @@ class StudentsController extends Controller
      */
     public function create()
     {
-        $classes = ClassesResource::collection(Classes::all());
+        // $classes = ClassesResource::collection(Classes::all());
         return Inertia('Students/create', compact('classes'));
     }
 
@@ -54,7 +54,7 @@ class StudentsController extends Controller
     public function edit(string $id)
      {
         $student=StudentResource::make(Student::findOrFail($id));
-        $classes = ClassesResource::collection(Classes::all());
+        // $classes = ClassesResource::collection(Classes::all());
         return Inertia('Students/edit', compact('classes','student'));
     }
 

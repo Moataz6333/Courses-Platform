@@ -20,7 +20,7 @@ class ExamResource extends JsonResource
             'period'=>$this->period,
             'startDate'=>$this->startDate,
             'course'=>[
-                'id'=>$this->course->id
+                'id'=>$this->course_id
             ]
         ];
     }

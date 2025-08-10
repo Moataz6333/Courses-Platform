@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateCourseRequest;
 use App\Http\Resources\CourseResource;
 use App\Http\Resources\EnrollemntResource;
 use App\Http\Resources\LessonsResource;
+use App\Http\Resources\OfferResource;
 use App\Http\Resources\TrackResource;
 use App\Interfaces\MediaInterface;
 use App\Models\Course;
@@ -15,6 +16,7 @@ use App\Models\Media;
 use App\Models\Teacher;
 use App\Models\Thumbnail;
 use App\Models\Track;
+use App\Models\User;
 use App\Service\TeacherService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -178,16 +180,23 @@ class CourseController extends Controller
        
     }
     // enrollments
-    public function enrollments($courseId)  {
+    public function enrollments(Request $request,$courseId)  {
         $course=Course::findOrFail($courseId);
         Gate::authorize('CourseOwner',$course);
-        // dd(EnrollemntResource::collection(Enrollment::where('course_id',$courseId)->paginate(10)));
+         $search=$request->search ?? '';
         return Inertia::render('Courses/enrollments',[
-            'enrollments'=>EnrollemntResource::collection(Enrollment::where('course_id',$courseId)->orderByDesc('created_at')->with('transaction')->paginate(10)),
+            'enrollments'=>EnrollemntResource::collection(
+               Enrollment::where('course_id',$courseId)->whereIn('user_id',function($query) use($search){
+                 $query->select('id')->from('users')->where('name','like','%'.$search.'%');
+            })->orderByDesc('created_at')->with(['user','transaction']) ->paginate(10)
+            ),
             'title'=>$course->title,
             'courseType'=>$course->price==0 ? 'free' : 'paid',
             'courseId'=>$courseId,
+            'search'=>$search
         ]);
     }
+    // offers
+   
     
 }

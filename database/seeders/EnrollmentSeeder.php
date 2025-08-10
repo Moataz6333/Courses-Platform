@@ -15,10 +15,10 @@ class EnrollmentSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = User::where('role', 'student')->paginate(11);
-        $courses = Course::where('price', 0)->get();
+        $users = User::where('role', 'student')->paginate(20);
+        $course = Course::find(86);
         foreach ($users as $user) {
-            foreach ($courses as $course) {
+            // foreach ($courses as $course) {
                 $enroll = Enrollment::where('user_id', $user->id)->where('course_id', $course->id)->first();
                 if (!$enroll) {
                     Enrollment::create([
@@ -29,7 +29,7 @@ class EnrollmentSeeder extends Seeder
                         'created_at'=>now()
                     ]);
                 }
-            }
+            // }
         }
     }
 }

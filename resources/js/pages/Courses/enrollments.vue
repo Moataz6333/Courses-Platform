@@ -7,9 +7,10 @@ import { ref,reactive } from 'vue';
 import Pagination from '@/components/Pagination.vue';
 import { watch,computed } from 'vue';
 import { router } from '@inertiajs/vue3';
+import MagnifyingGlass from '@/components/Icons/MagnifyingGlass.vue';
 
 const page = usePage();
-const enrollments = page.props.enrollments.data;
+// const enrollments = page.props.enrollments.data;
 let pageNumber=ref("1");
 defineProps({
     enrollments: {
@@ -29,11 +30,41 @@ defineProps({
         required: true,
     },
 });
+// search
+let search = ref(usePage().props.search || '');
+
+// Debounce function
+const debounce = (fn, delay) => {
+    let timeoutId;
+    return (...args) => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => fn(...args), delay);
+    };
+};
+
+// Watch search with debounce
+watch(search, debounce((value) => {
+    pageNumber.value = '1'; // Reset to first page on new search
+    let url = new URL(route("course.enrollments", page.props.courseId));
+    url.searchParams.append("page", pageNumber.value);
+    if (value) {
+        url.searchParams.append("search", value);
+    }
+    
+    router.visit(url, {
+        preserveScroll: true,
+        preserveState: true,
+        replace: true,
+    });
+}, 300)); // 300ms debounce delay
 
 const updatedPageNumber=(link)=>{
        pageNumber.value=link.url.split("=")[1];
           let url =new URL(route("course.enrollments",page.props.courseId));
          url.searchParams.append("page",pageNumber.value);
+         if(search.value){
+             url.searchParams.append("search", search.value);
+         }
         router.visit(url,{
             preserveScroll:true,
         });
@@ -50,19 +81,41 @@ const openTransactionModal=function(tr){
     <AppLayout>
         <BackHeader back-route="courses.index" :text="`Enrollments of Course : ${page.props.title}`" />
         <div class="my-3 p-4">
+            <!-- search -->
+                     
+                <div class="mt-6 flex flex-col justify-between sm:flex-row">
+                    <div class="relative col-span-3 text-sm text-gray-800">
+                        <div class="pointer-events-none absolute top-0 bottom-0 left-0 flex items-center pl-2 text-gray-500">
+                            <MagnifyingGlass />
+                        </div>
+
+                        <input
+                            v-model="search"
+                            type="text"
+                            autocomplete="off"
+                            placeholder="Search students data..."
+                            id="search"
+                            class="block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-gray-200 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 focus:ring-inset sm:text-sm sm:leading-6"
+                        />
+                    </div>
+                </div>
               <Pagination :data="page.props.enrollments" :updatedPageNumber="updatedPageNumber" />
             <table v-if="enrollments" class="w-full overflow-hidden rounded-md border-1 border-gray-200">
                 <thead class="rounded-t-md bg-gray-900 p-2 text-white">
-                    <th class="p-3 text-start">#</th>
+                    <tr>
+                        <th class="p-3 text-start">#</th>
                     <th class="text-start">name</th>
+                    <th class="text-start">email</th>
                     <th class="text-start">date</th>
                     <th v-if="page.props.courseType== 'paid'" class="text-start">paid</th>
                     <th v-if="page.props.courseType== 'paid'" class="text-start">transaction</th>
+                    </tr>
                 </thead>
                 <tbody>
-                    <tr class="border-1 border-gray-300 bg-gray-50 p-4 text-sm hover:bg-gray-100" v-for="(enrollment, index) in enrollments">
+                    <tr class="border-1 border-gray-300 bg-gray-50 p-4 text-sm hover:bg-gray-100" v-for="(enrollment, index) in enrollments.data">
                         <td scope="col" class="p-4 font-medium">{{ index + 1 }}</td>
                         <td>{{ enrollment.name.slice(0, 30) }}</td>
+                        <td>{{ enrollment.email }}</td>
                         <td>{{ enrollment.date }}</td>
                         <td v-if="page.props.courseType== 'paid'" class="text-green-500" :class="{ 'text-red-500': !enrollment.paid }">{{ enrollment.paid ? 'paid' : 'no' }}</td>
 

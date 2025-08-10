@@ -6,11 +6,14 @@ const props = defineProps({
     },
 });
 const lessons = props.lessons;
+const Appearance = localStorage.getItem('appearance');
 </script>
 <template>
     <div>
-        <div v-for="lesson in lessons" class="my-2 w-full rounded-md border-1 bg-white p-3 shadow-md">
-                <h2 class="text-xl font-medium">{{ lesson.title }}</h2>
+        <div v-for="lesson in lessons" class="my-2 w-full rounded-md border-1  p-3 shadow-md"
+         :class="[Appearance=='dark'?'bg-gray-300' : 'bg-white']"
+        >
+                <h2 class="text-xl text-black font-medium">{{ lesson.title }}</h2>
                 <p class="text-sm text-gray-500">{{ lesson.description }}</p>
                  <div v-if="lesson.media" class="mt-4 rounded border bg-white p-3 shadow">
                                     <template v-if="lesson.mediaType == 'pdf'">

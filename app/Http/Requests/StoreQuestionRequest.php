@@ -28,7 +28,7 @@ class StoreQuestionRequest extends FormRequest
             'questionHead'=>['nullable','min:2','max:300'],
             'media'=>['nullable','image'],
             'answer'=>['nullable','min:2'],
-            'points'=>['required','integer'],
+            'points'=>['required','integer','min:0'],
             'hasOptions'=>['required','boolean'],
             'options'=>['nullable','array'],
 

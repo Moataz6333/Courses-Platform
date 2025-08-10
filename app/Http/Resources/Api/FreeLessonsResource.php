@@ -20,7 +20,6 @@ class FreeLessonsResource extends JsonResource
             'description'=>$this->description ?? '',
             'thumbnail'=>$this->thumbnail ? $this->thumbnail->path : '',
             'mediaType'=>$this->media ?$this->media->type :'',
-            'media'=>$this->media ?$this->media->path :'',
         ];
     }
 }
