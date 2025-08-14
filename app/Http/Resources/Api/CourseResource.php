@@ -29,6 +29,7 @@ class CourseResource extends JsonResource
             'thumbnail' => $this->thumbnail ? $this->thumbnail->path : asset('storage/thumbnail.jpg'),
             'rate'=>$rate,
             'teacher' => [
+                'id'=>$this->teacher->id,
                 'name' => $this->teacher->user->name,
                 'specialization' => $this->teacher->specialization,
             ],
