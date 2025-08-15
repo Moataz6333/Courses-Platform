@@ -26,9 +26,7 @@ class UserRegiterationRequest extends FormRequest
             'name'=>['required','min:2','max:255'],
             'email'=>['required','min:2','max:255','email','unique:users'],
             'password'=>['required','min:6','max:255','confirmed'],
-            'national_id'=>['required','min:2','max:255','unique:users'],
             'birthdate'=>['required','date','before:now'],
-            'role'=>['required',Rule::in(['student','teacher'])],
             'gender'=>['required',Rule::in(['male','female'])],
             'phone'=>['required','min:2','max:255'],
         ];

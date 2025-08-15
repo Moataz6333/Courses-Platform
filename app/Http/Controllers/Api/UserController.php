@@ -25,41 +25,20 @@ class UserController extends Controller
             'gender' => $request->gender,
             'birthdate' => $request->birthdate,
             'password' => Hash::make($request->password),
-            'role' => $request->role,
+            'role' => 'student',
         ]);
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        switch ($user->role) {
-            case 'student':
-                Student::create([
-                    'user_id' => $user->id
-                ]);
 
-                return response()->json([
-                    'message' => 'Student is registered in successfully!',
-                    'user' => $user->load('student'),
-                    'token' => $token
-                ], 200);
-                break;
+        Student::create([
+            'user_id' => $user->id
+        ]);
 
-            case 'teacher':
-                Teacher::create([
-                    'user_id' => $user->id,
-                    'phone' => $request->phone,
-                    'national_id' => $request->national_id,
-                ]);
-                return response()->json([
-                    'message' => 'Teacher is registered in successfully!',
-                    'user' => $user->load('teacher'),
-                    'url' => url('/'),
-                    'token' => $token
-                ], 200);
-                break;
-
-            default:
-                abort(404);
-                break;
-        }
+        return response()->json([
+            'message' => 'Student is registered in successfully!',
+            'user' => $user->load('student'),
+            'token' => $token
+        ], 200);
     }
     public function login(UserLoginRequest $request)
     {
@@ -136,14 +115,14 @@ class UserController extends Controller
                     'gender' => 'male'
                 ]
             );
-             Student::firstOrCreate([
-                    'user_id' => $user->id
-                ]);
+            Student::firstOrCreate([
+                'user_id' => $user->id
+            ]);
 
             // Generate token (if using Sanctum or Passport)
             $token = $user->createToken('auth_token')->plainTextToken;
 
-            return redirect(env("FRONTEND_URL").'/profile?token='.$token);
+            return redirect(env("FRONTEND_URL") . '/profile?token=' . $token);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Authentication failed', 'message' => $e->getMessage()], 500);
         }
