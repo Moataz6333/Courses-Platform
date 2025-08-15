@@ -7,8 +7,9 @@ import {
   BarElement,
   CategoryScale,
   LinearScale,
+  ArcElement,
 } from 'chart.js';
-import { Bar } from 'vue-chartjs';
+import { Pie } from 'vue-chartjs';
 
 defineProps({
   data: {
@@ -20,16 +21,15 @@ defineProps({
     default: () => ({
       responsive: true,
       maintainAspectRatio: false,
-      
     }),
   },
 });
 
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale,ArcElement);
 </script>
 
 <template>
   <div class="w-fit h-[300px]">
-    <Bar :data="data" :options="options" />
+    <Pie :data="data" :options="options" />
   </div>
 </template>

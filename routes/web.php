@@ -10,12 +10,6 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\SoicalMediaController;
 use App\Http\Middleware\TeacherMiddleware;
-use App\Jobs\SendignEmailJob;
-use App\Models\Course;
-use App\Models\Enrollment;
-use App\Models\Exam;
-use App\Models\Offer;
-use App\Models\Result;
 use App\Models\User;
 use App\Service\ResendEmailService;
 use Faker\Provider\Lorem;
@@ -23,7 +17,6 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Broadcast;
-
 
 
 Broadcast::routes(['middleware' => ['auth:sanctum']]);
@@ -65,7 +58,8 @@ Route::middleware(['auth', TeacherMiddleware::class])->group(function () {
   Route::resource('offers', OfferController::class)->except(['index','create']);
 });
 Route::get('test', function () {
-  return url(asset('storage/logo.png'));
+  $user=User::find(22);
+  dd(date_diff(now(),date_create($user->birthdate))->y);
 });
   
 require __DIR__ . '/settings.php';

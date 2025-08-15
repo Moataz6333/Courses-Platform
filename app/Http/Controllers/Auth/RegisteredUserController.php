@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -39,8 +40,16 @@ class RegisteredUserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'role'=>'teacher',
+            'gender'=>'male',
+            'birthdate'=>'1-1-1990',
             'password' => Hash::make($request->password),
         ]);
+         Teacher::create([
+                    'user_id' => $user->id,
+                    'phone' =>'01200000',
+                    'national_id' => '323232323232',
+                ]);
 
         event(new Registered($user));
 

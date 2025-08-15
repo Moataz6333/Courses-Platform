@@ -49,6 +49,11 @@ class UsersTableSeeder extends Seeder
         //         Teacher::factory()->make()->toArray()
         //     );
         // });
+        $users=User::all();
+        foreach ($users as $user) {
+            $user->birthdate=fake()->dateTimeBetween('-30 years','-14 years');
+            $user->save();
+        }
 
     }
 }

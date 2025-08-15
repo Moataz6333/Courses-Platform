@@ -143,11 +143,7 @@ class UserController extends Controller
             // Generate token (if using Sanctum or Passport)
             $token = $user->createToken('auth_token')->plainTextToken;
 
-            return response()->json([
-                    'message' => 'Student is registered in successfully!',
-                    'user' => $user->load('student'),
-                    'token' => $token
-                ], 200);
+            return redirect(env("FRONTEND_URL").'/profile?token='.$token);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Authentication failed', 'message' => $e->getMessage()], 500);
         }
