@@ -9,7 +9,9 @@ use App\Http\Controllers\OfferController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\SoicalMediaController;
+use App\Http\Controllers\StudentsController;
 use App\Http\Middleware\TeacherMiddleware;
+use App\Models\Enrollment;
 use App\Models\User;
 use App\Service\ResendEmailService;
 use Faker\Provider\Lorem;
@@ -56,10 +58,13 @@ Route::middleware(['auth', TeacherMiddleware::class])->group(function () {
   // offers
   Route::get('/course/offers/{courseId}', [OfferController::class, 'index'])->name('course.offers');
   Route::resource('offers', OfferController::class)->except(['index','create']);
+
+  // students
+  Route::get('/students',[StudentsController::class, 'index'])->name('students.index');
+
 });
 Route::get('test', function () {
-  $user=User::find(22);
-  dd(date_diff(now(),date_create($user->birthdate))->y);
+  dd(Enrollment::all()->groupBy('user_id'));
 });
   
 require __DIR__ . '/settings.php';

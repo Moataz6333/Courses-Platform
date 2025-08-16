@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreStudentRequest;
-use App\Http\Requests\UpdateStudentRequest;
-use App\Http\Resources\ClassesResource;
 use App\Http\Resources\StudentResource;
-use App\Models\Classes;
-use App\Models\Student;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class StudentsController extends Controller
@@ -18,62 +16,18 @@ class StudentsController extends Controller
      */
     public function index(Request $request)
     {
-        $search=$request->search ?? '';
-        // create inital query
-        $studentQuery=Student::query();
-        // apply this query only when the search is sended
-        $this->ApplyQuerey($studentQuery,$search);
-        $students = StudentResource::collection($studentQuery->paginate(10));
-        return Inertia('Students/Index', compact('students','search'));
+        $user = Auth::user();
+         $search=$request->search ?? '';
+        $user_courses = $user->teacher->courses->pluck('id')->toArray();
+        
+        return Inertia('Students/Index', ['students' => StudentResource::collection(
+            DB::table('users')
+            ->whereIn('id',DB::table('enrollments')->whereIn('course_id',$user_courses)->pluck('user_id')->toArray())
+            ->where('users.name','like','%'.$search.'%')
+            ->paginate(10)),
+            'search'=>$search]);
     }
-    protected function ApplyQuerey($query,$search)  {
-        return $query->when($search,function($query,$search)  {
-            $query->where('name','like','%'.$search.'%');
-        });
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        // $classes = ClassesResource::collection(Classes::all());
-        return Inertia('Students/create', compact('classes'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreStudentRequest $request)
-    {
-        Student::create($request->validated());
-        return redirect()->route('students.index');
-    }
-
-
-    public function edit(string $id)
-     {
-        $student=StudentResource::make(Student::findOrFail($id));
-        // $classes = ClassesResource::collection(Classes::all());
-        return Inertia('Students/edit', compact('classes','student'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateStudentRequest $request, Student $student)
-    {
-        $student->update($request->validated());
-        return redirect()->route('students.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        $student=Student::findOrFail($id);
-        $student->delete();
-        return redirect()->route('students.index');
+    public function student($id){
+        $id;
     }
 }

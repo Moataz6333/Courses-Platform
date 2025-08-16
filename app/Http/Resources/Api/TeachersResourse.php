@@ -19,7 +19,7 @@ class TeachersResourse extends JsonResource
             'name'=>$this->user->name,
             'email'=>$this->user->email,
             'specialization'=>$this->specialization,
-            'profile'=>$this->user->profile ?$this->user->profile : asset('storage/profile.jfif'),
+            'profile'=>$this->user->profile ?$this->user->profile : asset('storage/cover.jpg'),
             'courses_count'=>$this->courses_count
         ];
     }
