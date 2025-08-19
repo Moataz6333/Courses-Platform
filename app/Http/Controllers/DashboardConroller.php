@@ -17,7 +17,7 @@ class DashboardConroller extends Controller
         $user = Auth::user();
         $course_enrollments = DB::table('courses')
             ->join('enrollments', 'courses.id', '=', 'enrollments.course_id')
-            ->where('courses.teacher_id', $user->id)
+            ->where('courses.teacher_id', $user->teacher->id)
             ->select('courses.title as course', DB::raw('COUNT(enrollments.id) as students'))
             ->groupBy('courses.title')
             ->get();
@@ -41,11 +41,10 @@ class DashboardConroller extends Controller
 
         return Inertia::render('Dashboard', [
             'stats' => [
-                'total_students' => DB::table('enrollments')->whereIn('course_id', function ($query) use ($user) {
-                    $query->select('id')->from('courses')->where('teacher_id', $user->id);
-                })->count(),
-                'total_courses' => DB::table('courses')->where('teacher_id', $user->id)->count(),
-                'average_course_vote' => round(DB::table('reviews')->join('courses', 'reviews.course_id', '=', 'courses.id')->where('courses.teacher_id', $user->id)->average('reviews.votes'), 1),
+                'total_students' =>  DB::table('users')
+            ->whereIn('id',DB::table('enrollments')->whereIn('course_id',$user_courses)->pluck('user_id')->toArray())->count(),
+                'total_courses' =>  count($user_courses),
+                'average_course_vote' => round(DB::table('reviews')->join('courses', 'reviews.course_id', '=', 'courses.id')->where('courses.teacher_id', $user->teacher->id)->average('reviews.votes'), 1),
             ],
             'students_gender' => $students_gender,
             'course_enrollments' => $course_enrollments,

@@ -12,6 +12,7 @@ use App\Http\Controllers\SoicalMediaController;
 use App\Http\Controllers\StudentsController;
 use App\Http\Middleware\TeacherMiddleware;
 use App\Models\Enrollment;
+use App\Models\Student;
 use App\Models\User;
 use App\Service\ResendEmailService;
 use Faker\Provider\Lorem;
@@ -61,10 +62,18 @@ Route::middleware(['auth', TeacherMiddleware::class])->group(function () {
 
   // students
   Route::get('/students',[StudentsController::class, 'index'])->name('students.index');
+  Route::get('/student/{id}',[StudentsController::class, 'student'])->name('students.show');
+
 
 });
 Route::get('test', function () {
-  dd(Enrollment::all()->groupBy('user_id'));
+  $users=User::where('role','student')->get();
+  foreach ($users as $user) {
+    if($user->student==null){
+      dump($user->id);
+    }
+  }
+  echo'done';
 });
   
 require __DIR__ . '/settings.php';

@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class StudentResource extends JsonResource
+class StudentDetailsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,6 +19,8 @@ class StudentResource extends JsonResource
             'name' =>$this->name,
             'email' =>$this->email,
             'birthdate' =>$this->birthdate ?? '',
-        ];
+            'phone'=>$this->student ? $this->student->phone : '',
+            'profile'=>url('storage/profile.jfif')
+        ];;
     }
 }

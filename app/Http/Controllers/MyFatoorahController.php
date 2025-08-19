@@ -272,7 +272,7 @@ class MyFatoorahController extends Controller
     //-----------------------------------------------------------------------------------------------------------------------------------------
     private function getTestOrderData($orderId)
     {
-        $enrollment=Enrollment::where('uuid',$orderId)->first()->load(['course','user']);
+        $enrollment=Enrollment::where('uuid',$orderId)->first();
         if (!$enrollment) {
             abort(404);
         }

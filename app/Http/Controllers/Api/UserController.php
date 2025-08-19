@@ -31,7 +31,8 @@ class UserController extends Controller
 
 
         Student::create([
-            'user_id' => $user->id
+            'user_id' => $user->id,
+            'phone'=>$request->phone
         ]);
 
         return response()->json([

@@ -18,6 +18,7 @@ class PaidLessonsResource extends JsonResource
              'id'=>$this->id,
             'title'=>$this->title,
             'description'=>$this->description ?? '',
+            'thumbnail'=>$this->thumbnail ? $this->thumbnail->path : '',
         ];
     }
 }

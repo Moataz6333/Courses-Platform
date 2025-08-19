@@ -2,7 +2,7 @@
 import MagnifyingGlass from '@/components/Icons/MagnifyingGlass.vue';
 import Pagination from '@/components/Pagination.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { Head, router, useForm, usePage } from '@inertiajs/vue3';
+import { Head, router, useForm, usePage,Link } from '@inertiajs/vue3';
 import { ref, watch } from 'vue';
 // import axios from 'axios';
 
@@ -66,7 +66,7 @@ const deleteStudent = (studentId) => {
 };
 </script>
 <template>
-    <AppLayout>
+    <AppLayout :breadcrumbs="[{ title: 'Students', href: '/students' }]">
         <Head title="Students" />
         <div class="py-4">
             <div class="mx-auto max-w-7xl">
@@ -113,7 +113,9 @@ const deleteStudent = (studentId) => {
                                     </td>
                                     <td class="px-3 py-4 text-sm whitespace-nowrap text-gray-500">{{ student.email }}</td>
                                     <td class="px-3 py-4 text-sm whitespace-nowrap text-gray-500">
-                                        <button class="text-indigo-600 hover:text-indigo-900">Show</button>
+                                        <Link
+                                        :href="route('students.show',student.id)"
+                                         class="text-indigo-600 hover:text-indigo-900">Show</Link>
                                     </td>
 
                                     <td class="px-3 py-4 text-sm whitespace-nowrap text-gray-500">

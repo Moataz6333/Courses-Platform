@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\LessonController;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\TeacherController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\CourseController;
 use App\Http\Middleware\StudentMiddleware;
 use Illuminate\Http\Request;
@@ -26,6 +27,9 @@ Route::get('/auth/google/callback', [UserController::class, 'handleGoogleCallbac
     Route::get('/teachers',[TeacherController::class, 'index']);
     Route::get('/teacher/{id}',[TeacherController::class, 'teacher']);
 
+    // contact us
+    Route::post('/contact-us', [ContactUsController::class,'send']);
+
 
 Route::middleware(['auth:sanctum',StudentMiddleware::class])->group(function () {
     Route::get('/me', [UserController::class,'me']);
@@ -44,7 +48,9 @@ Route::middleware(['auth:sanctum',StudentMiddleware::class])->group(function () 
     Route::delete('/course/review/{id}', [ReviewController::class, 'destroy']);
 
     // lessons
-    Route::get('/lesson/{id}', [CoursesController::class,'lesson']);
+    // Route::get('/lesson/{id}', [CoursesController::class,'lesson']);
+
+    // 
     
 
 });
